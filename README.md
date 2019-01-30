@@ -1,6 +1,6 @@
 # 1819_INFO2_PWCS_TP1
 
-1 .Produisez une page html "tp1.html" présentant un compteur initialisé à 10 secondes et comptant à rebours, à raison
+1. Produisez une page html "tp1.html" présentant un compteur initialisé à 10 secondes et comptant à rebours, à raison
 d’une unité par seconde. Le décompte doit s’arrêter à 0 secondes. Vous utiliserez pour cela la fonction
  [setInterval](https://developer.mozilla.org/fr/docs/Web/API/WindowTimers/setInterval)
 et
