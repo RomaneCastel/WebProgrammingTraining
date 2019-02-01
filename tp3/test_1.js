@@ -15,18 +15,19 @@ function init(){
 
 	timer = setInterval(function() {
 		laDiv.style.left = ( left -= 10 ) + "px";
-		
+		pausecomp(1000);
 		// clear the timer at 400px to stop the animation
 		if ( left <=0 ) {
 			clearInterval( timer );
 		}
-	},pausecomp(16));
+	},16);
 
 	function pausecomp(millis){
 		var date = new Date();
 		var curDate = null;
 		do{
 			curDate = new Date();
+			//console.log(curDate-date);
 		}while(curDate-date < millis);
 	}
 }
