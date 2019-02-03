@@ -5,9 +5,7 @@ function init(){
 	var timestamp = new Date();
 	var left = 500;
 
-	//render();
 	function render(){
-		//console.
 		var currentTime = new Date();
 		progress = currentTime - timestamp;
 		left -= progress;
