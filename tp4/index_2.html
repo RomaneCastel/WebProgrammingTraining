@@ -3,40 +3,94 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Events </title>
-    </head>
-    <body>
-    </body>
-<script>
-window.addEventListener("keydown", function (event) {
-  if (event.defaultPrevented) {
-    return; // Should do nothing if the key event was already consumed.
-  }
+	 <script>
+	var speed = 10;
+	var posX =0;
+	var posY = 0;
+	var herosSprites = new Image();
+	var assetOfKeyPressed = [false,false,false,false,false,false];
+	function init(){
+		canvas = document.getElementById('canvas');
+		ctx = canvas.getContext('2d');
+		herosSprites.src = './heros.png';
+		//ctx.drawImage(herosSprites, 0, 0, 128, 128,posX,posY,128, 128);
+		window.addEventListener("keydown", assetKeyDown, true);
+		time = window.requestAnimationFrame(draw);
+	}
 
-  switch (event.key) {
-    case "ArrowDown":
-      // Do something for "down arrow" key press.
-          alert("ArrowDown");
-      break;
-    case "ArrowUp":
-      // Do something for "up arrow" key press.
-      break;
-    case "ArrowLeft":
-      // Do something for "left arrow" key press.
-      break;
-    case "ArrowRight":
-      // Do something for "right arrow" key press.
-      break;
-    case "Enter":
-      // Do something for "enter" or "return" key press.
-      break;
-    case "Escape":
-      // Do something for "esc" key press.
-      break;
-    default:
-      return; // Quit when this doesn't handle the key event.
-  }
+	function assetKeyDown(event){
+	  if (event.defaultPrevented) {
+		 return; // Should do nothing if the key event was already consumed.
+	  }
 
-  // Consume the event for suppressing "double action".
-  event.preventDefault();
-}, true);
+	  switch (event.key) {
+		 case "ArrowDown":
+		  	assetOfKeyPressed[2] = true; // when the key is pressed, 
+												// its index in the array is true
+			console.log("D");		   
+			break;
+		 case "ArrowUp":
+		   assetOfKeyPressed[3] = true;
+			console.log("U");	
+		   break;
+		 case "ArrowLeft":
+		   assetOfKeyPressed[0] = true;
+			console.log("L");	
+		   break;
+		 case "ArrowRight":
+		   assetOfKeyPressed[1] = true;
+			console.log("R");	
+		   break;
+		 case "Enter":
+		   assetOfKeyPressed[4] = true;
+		   break;
+		 case "Escape":
+		   assetOfKeyPressed[5] = true;
+		   break;
+		 default:
+		   return; // Quit when this doesn't handle the key event.
+	  }
+
+	  // Consume the event for suppressing "double action".
+	  event.preventDefault();
+	}
+
+	function returnIndex(){
+		var i = 0;
+		while(i<6 && assetOfKeyPressed[i] == false){
+			i ++;
+		}
+		if(assetOfKeyPressed[i] == false){
+			return null;
+		}
+		else{
+			return i;
+		}
+	}
+
+	function draw(){
+		var index = returnIndex();
+		if(index != null){
+			ctx.clearRect(posX,posY,128,128);
+			switch (index) {
+				case 0 : posX-=speed;
+				break;
+				case 1 : posX+=speed;
+				break;
+				case 2 : posY+=speed;
+				break;
+				case 3 : posY-=speed;
+				break;
+			}
+			ctx.drawImage(herosSprites, 0, index*128, 128, 128,posX,posY,128, 128); 
+			assetOfKeyPressed[index] = false;
+		}
+		window.requestAnimationFrame(draw);
+	}
+
     </script>
+    </head>
+    <body onload="var k1=window.setTimeout('init();', 200);">
+	 <canvas id="canvas" width="600" height="600"/>
+    </body>
+
