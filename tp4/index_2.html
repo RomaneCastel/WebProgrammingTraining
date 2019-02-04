@@ -9,13 +9,20 @@
 	var posY = 0;
 	var herosSprites = new Image();
 	var assetOfKeyPressed = [false,false,false,false,false,false];
+	// those counters describe the character's state	
+	var rest = 0;
+	var left = -1;
+	var right = -1;
+	var down = -1;
+	var up = -1;
+	// when -1, the character is not is the state
 	function init(){
 		canvas = document.getElementById('canvas');
 		ctx = canvas.getContext('2d');
 		herosSprites.src = './heros.png';
+		herosSprites.addEventListener("load", function(){window.requestAnimationFrame(draw);}, false); //to wait for the image downloading before using it
 		//ctx.drawImage(herosSprites, 0, 0, 128, 128,posX,posY,128, 128);
 		window.addEventListener("keydown", assetKeyDown, true);
-		time = window.requestAnimationFrame(draw);
 	}
 
 	function assetKeyDown(event){
@@ -27,7 +34,13 @@
 		 case "ArrowDown":
 		  	assetOfKeyPressed[2] = true; // when the key is pressed, 
 												// its index in the array is true
-			console.log("D");		   
+			console.log("D");	
+			if(down <7){	 
+				down ++; 
+			} 
+			else{
+				down= 0;
+			}
 			break;
 		 case "ArrowUp":
 		   assetOfKeyPressed[3] = true;
