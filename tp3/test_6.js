@@ -14,9 +14,10 @@ function init(){
 function renderNextSprite(){
 	pausecomp(200);
 	spriteNumber +=1;
-	if(spriteNumber > 10){ // 10 different sprites 
+	if(spriteNumber > 9){ // 10 different sprites 
 		spriteNumber = 0;
 	}
+	console.log(spriteNumber);
 	ctx.clearRect(0,0,size,size);
 	ctx.drawImage(allSprite, spriteNumber*size, 0, size, size,0,0,size, size);
 	window.requestAnimationFrame(renderNextSprite);
