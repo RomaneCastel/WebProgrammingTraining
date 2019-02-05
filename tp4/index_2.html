@@ -16,6 +16,8 @@
 	var down = -1;
 	var up = -1;
 	// when -1, the character is not is the state
+	var frame = 0; // frame of the walking character
+
 	function init(){
 		canvas = document.getElementById('canvas');
 		ctx = canvas.getContext('2d');
@@ -35,12 +37,6 @@
 		  	assetOfKeyPressed[2] = true; // when the key is pressed, 
 												// its index in the array is true
 			console.log("D");	
-			if(down <7){	 
-				down ++; 
-			} 
-			else{
-				down= 0;
-			}
 			break;
 		 case "ArrowUp":
 		   assetOfKeyPressed[3] = true;
@@ -87,15 +83,46 @@
 			ctx.clearRect(posX,posY,128,128);
 			switch (index) {
 				case 0 : posX-=speed;
+							if(left<8){							
+								left++;		
+							}
+							else{
+								left = 0;
+							}
+							frame = left;	
 				break;
 				case 1 : posX+=speed;
+							if(right<8){							
+								right++;		
+							}
+							else{
+								right = 0;
+							}
+							frame = right;
 				break;
 				case 2 : posY+=speed;
+							if(down<8){		
+								down++;	
+							}
+							else{
+								down = 0;
+							}	
+							frame = down;
 				break;
 				case 3 : posY-=speed;
+							if(up<8){							
+								up++;		
+							}
+							else{
+								up = 0;
+							}
+							frame = up;
 				break;
 			}
-			ctx.drawImage(herosSprites, 0, index*128, 128, 128,posX,posY,128, 128); 
+			console.log(frame + " frame" );
+			console.log(Math.trunc(frame/2) + " trucated");
+			ctx.drawImage(herosSprites, Math.trunc(frame/2), index*128, 128, 128,posX,posY,128, 128);
+			frame = 0;
 			assetOfKeyPressed[index] = false;
 		}
 		window.requestAnimationFrame(draw);
