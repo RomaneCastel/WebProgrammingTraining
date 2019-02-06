@@ -121,7 +121,7 @@
 			}
 			console.log(frame + " frame" );
 			console.log(Math.trunc(frame/2) + " trucated");
-			ctx.drawImage(herosSprites, Math.trunc(frame/2), index*128, 128, 128,posX,posY,128, 128);
+			ctx.drawImage(herosSprites, 128*Math.trunc(frame/2), index*128, 128, 128,posX,posY,128, 128);
 			frame = 0;
 			assetOfKeyPressed[index] = false;
 		}
