@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Events </title>
+	 <script>
+	var speed = 10;
+	var posX =0;
+	var posY = 0;
+	var herosSprites = new Image();
+	var assetOfKeyPressed = [false,false,false,false,false,false];
+	// those counters describe the character's state	
+	var rest = 0;
+	var left = -1;
+	var right = -1;
+	var down = -1;
+	var up = -1;
+	// when -1, the character is not is the state
+	var frame = 0; // frame of the walking character
+
+	function init(){
+		canvas = document.getElementById('canvas');
+		ctx = canvas.getContext('2d');
+		herosSprites.src = './heros.png';
+		herosSprites.addEventListener("load", function(){window.requestAnimationFrame(draw);}, false); //to wait for the image downloading before using it
+		//ctx.drawImage(herosSprites, 0, 0, 128, 128,posX,posY,128, 128);
+		window.addEventListener("keydown", assetKeyDown, true);
+	}
+
+	function assetKeyDown(event){
+	  if (event.defaultPrevented) {
+		 return; // Should do nothing if the key event was already consumed.
+	  }
+
+	  switch (event.key) {
+		 case "ArrowDown":
+		  	assetOfKeyPressed[2] = true; // when the key is pressed, 
+												// its index in the array is true
+			console.log("D");	
+			break;
+		 case "ArrowUp":
+		   assetOfKeyPressed[3] = true;
+			console.log("U");	
+		   break;
+		 case "ArrowLeft":
+		   assetOfKeyPressed[0] = true;
+			console.log("L");	
+		   break;
+		 case "ArrowRight":
+		   assetOfKeyPressed[1] = true;
+			console.log("R");	
+		   break;
+		 case "Enter":
+		   assetOfKeyPressed[4] = true;
+		   break;
+		 case "Escape":
+		   assetOfKeyPressed[5] = true;
+		   break;
+		 default:
+		   return; // Quit when this doesn't handle the key event.
+	  }
+
+	  // Consume the event for suppressing "double action".
+	  event.preventDefault();
+	}
+
+	function returnIndex(){
+		var i = 0;
+		while(i<6 && assetOfKeyPressed[i] == false){
+			i ++;
+		}
+		if(assetOfKeyPressed[i] == false){
+			return null;
+		}
+		else{
+			return i;
+		}
+	}
+
+	function draw(){
+		var index = returnIndex();
+		if(index != null){
+			ctx.clearRect(posX,posY,128,128);
+			switch (index) {
+				case 0 : posX-=speed;
+							if(left<7){							
+								left++;		
+							}
+							else{
+								left = 0;
+							}
+							frame = left;	
+				break;
+				case 1 : posX+=speed;
+							if(right<7){							
+								right++;		
+							}
+							else{
+								right = 0;
+							}
+							frame = right;
+				break;
+				case 2 : posY+=speed;
+							if(down<7){		
+								down++;	
+							}
+							else{
+								down = 0;
+							}	
+							frame = down;
+				break;
+				case 3 : posY-=speed;
+							if(up<7){							
+								up++;		
+							}
+							else{
+								up = 0;
+							}
+							frame = up;
+				break;
+			}
+			console.log(frame + " frame" );
+			console.log(Math.trunc(frame/2) + " trucated");
+			ctx.drawImage(herosSprites, 128*Math.trunc(frame/2), index*128, 128, 128,posX,posY,128, 128);
+			frame = 0;
+			assetOfKeyPressed[index] = false;
+		}
+		window.requestAnimationFrame(draw);
+	}
+
+    </script>
+    </head>
+    <body onload="var k1=window.setTimeout('init();', 200);">
+	 <canvas id="canvas" width="600" height="600"/>
+    </body>
+
