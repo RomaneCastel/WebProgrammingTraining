@@ -83,7 +83,7 @@
 			ctx.clearRect(posX,posY,128,128);
 			switch (index) {
 				case 0 : posX-=speed;
-							if(left<8){							
+							if(left<7){							
 								left++;		
 							}
 							else{
@@ -92,7 +92,7 @@
 							frame = left;	
 				break;
 				case 1 : posX+=speed;
-							if(right<8){							
+							if(right<7){							
 								right++;		
 							}
 							else{
@@ -101,7 +101,7 @@
 							frame = right;
 				break;
 				case 2 : posY+=speed;
-							if(down<8){		
+							if(down<7){		
 								down++;	
 							}
 							else{
@@ -110,7 +110,7 @@
 							frame = down;
 				break;
 				case 3 : posY-=speed;
-							if(up<8){							
+							if(up<7){							
 								up++;		
 							}
 							else{
