@@ -7,6 +7,7 @@ var animFrame = window.requestAnimationFrame ||
 
 var tics = 0;
 var _timeToBeAlive = 30;
+var gameOver = false;
 
 //Canvas
 var divArena;
@@ -295,6 +296,16 @@ var player = {
     width : 64,
     nbOfLives : 2,
     timeToBeAlive : 0,
+	/*initialisation : function(){
+		console.log("is called");
+		x = 20;
+		ySpeed = 10;
+		y = 100;
+		height = 29;
+    	width = 64;
+    	nbOfLives = 2;
+    	timeToBeAlive = 0 ;
+	},*/
     fires : function(){
         var tmp = new Projectile(this.x+this.width,this.y+this.height/2,4,10,3,"rgb(200,0,0)");
         this.projectileSet.add(tmp);
@@ -307,7 +318,7 @@ var player = {
                 this.cptExplosion = 1;
             }else{
                 //Game Over
-                console.log("GAME OVER");
+               gameOver = true;
             }
         }
     },
@@ -416,12 +427,33 @@ function drawGame() {
     drawItems();    
 }
 
+//called when GameOver
+function endGame(){
+	var keycode;
+	conArena.fillStyle = "white";
+	conArena.fillText("press enter to restart", 210, 150,);
+	for (keycode in keyStatus) {
+                if(keyStatus[keycode] == true){
+                    if(keycode == keys.ENTER) {
+                        gameOver = false;
+								conArena.clearRect(210,100,200,200);
+								player.nbOfLives = 2;
+								enemies.init();
+                    }
+					}
+	}
+}
 
 function mainloop () {
-    "use strict"; 
-    clearGame();
-    updateGame();
-    drawGame();
+	if(!gameOver){
+		 "use strict"; 
+		 clearGame();
+		 updateGame();
+		 drawGame();
+	}else{
+		clearGame();
+		endGame();
+	}
 }
 
 function recursiveAnim () {
