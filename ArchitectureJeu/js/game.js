@@ -68,6 +68,21 @@ var PlayerImgWidth = 64;
 /////////////////////////////////
 
 
+/////////////////////////////////
+//Enemy
+var imgEnemy = new Image();
+imgEnemy.src = "./assets/Enemy/HueShifted/eSpritesheet_40x30_hue1.png";
+//imgEnemy.src = "./assets/Ship/f1.png";
+var xEnemy = 150;
+var xEnemySpeed = -1;
+var yEnemy = 100;
+var EnemyHeight = 15;
+var EnemyWidth = 32;
+var EnemyImgHeight = 30;
+var EnemyImgWidth = 40;
+/////////////////////////////////
+
+
 
 function updateScene() {
     "use strict"; 
@@ -92,6 +107,7 @@ function updateItems() {
             }
         keyStatus[keycode] = false;
     }
+		xEnemy += xEnemySpeed;
 }
 function drawScene() {
     "use strict"; 
@@ -100,10 +116,12 @@ function drawScene() {
 function drawItems() {
     "use strict"; 
     conArena.drawImage(imgPlayer, 0,0,PlayerImgWidth,PlayerImgHeight, xPlayer,yPlayer,PlayerWidth,PlayerHeight);
+	conArena.drawImage(imgEnemy, 0, 0, EnemyImgWidth, EnemyImgHeight, xEnemy, yEnemy, EnemyWidth, EnemyHeight);
 }
 function clearItems() {
     "use strict"; 
     conArena.clearRect(xPlayer,yPlayer,PlayerWidth,PlayerHeight);
+	conArena.clearRect(xEnemy,yEnemy,EnemyWidth,EnemyHeight);
 }
 
 function updateGame() {
