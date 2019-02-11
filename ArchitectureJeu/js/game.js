@@ -74,9 +74,10 @@ function updateItems() {
     player.update();
     tics++;
      if(tics % 100 == 1) {
-         var rand = Math.floor(Math.random() * ArenaHeight);
-
-        enemies.add(new Enemy(ArenaWidth, rand,-2));
+         var rand1 = Math.floor(Math.random() * ArenaHeight);
+			var rand2 = Math.floor(Math.random() * 10);
+	
+        enemies.add(new Enemy(ArenaWidth, rand1, -rand2));
     }
     enemies.update();
 }

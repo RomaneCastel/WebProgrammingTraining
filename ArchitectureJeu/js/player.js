@@ -60,9 +60,11 @@ var player = {
                     }
 						  if(keycode == keys.LEFT) {
                         this.x -= this.xSpeed;
+								if(this.x<0) this.x = 0;
                     }
 						  if(keycode == keys.RIGHT) {
                         this.x += this.xSpeed;
+								if(this.x > ArenaWidth- this.width) this.x = ArenaWidth-this.width;
                     }
                     if(keycode == keys.SPACE) {
                         //shoot
