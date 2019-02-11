@@ -439,6 +439,7 @@ function endGame(){
 								conArena.clearRect(210,100,200,200);
 								player.nbOfLives = 2;
 								enemies.init();
+								clearScore();
                     }
 					}
 	}
