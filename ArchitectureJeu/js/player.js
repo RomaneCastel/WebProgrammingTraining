@@ -13,22 +13,13 @@ var player = {
         this.projectileSet = new ProjectileSet();
     },
     x : 20,
-    ySpeed : 10,
+	 xSpeed : 30,
+    ySpeed : 30,
     y : 100,
     height : 29,
     width : 64,
     nbOfLives : 2,
     timeToBeAlive : 0,
-	/*initialisation : function(){
-		console.log("is called");
-		x = 20;
-		ySpeed = 10;
-		y = 100;
-		height = 29;
-    	width = 64;
-    	nbOfLives = 2;
-    	timeToBeAlive = 0 ;
-	},*/
     fires : function(){
         var tmp = new Projectile(this.x+this.width,this.y+this.height/2,4,10,3,"rgb(200,0,0)");
         this.projectileSet.add(tmp);
@@ -66,6 +57,12 @@ var player = {
                     if(keycode == keys.DOWN) {
                         this.y += this.ySpeed;
                         if(this.y>ArenaHeight-this.height) this.y=ArenaHeight-this.height;
+                    }
+						  if(keycode == keys.LEFT) {
+                        this.x -= this.xSpeed;
+                    }
+						  if(keycode == keys.RIGHT) {
+                        this.x += this.xSpeed;
                     }
                     if(keycode == keys.SPACE) {
                         //shoot

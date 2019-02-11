@@ -8,6 +8,8 @@ var animFrame = window.requestAnimationFrame ||
 var tics = 0;
 var _timeToBeAlive = 30;
 var gameOver = false;
+var tableScore = [0,0,0,0,0,0,0,0];
+var countScore = 0;
 
 //Canvas
 var divArena;
@@ -29,10 +31,12 @@ var backgroundHeight = 600;
 ///////////////////////////////////
 //Keys
 var keys = {
-    UP: 38,
-    DOWN: 40,
-    SPACE: 32,
-    ENTER: 13
+	UP: 38,
+	DOWN: 40,
+	SPACE: 32,
+	ENTER: 13,
+	LEFT: 37,
+	RIGHT: 39
 };
 
 var keyStatus = {};
@@ -94,6 +98,7 @@ function clearItems() {
 function clearScore() {
     conScore.clearRect(0,0,300,50);
 }
+
 function drawScore() {
     conScore.fillText("life : "+player.nbOfLives, 10, 25);
     conScore.fillText("score : "+player.projectileSet.score, 150,25);
@@ -120,15 +125,28 @@ function drawGame() {
 function endGame(){
 	var keycode;
 	conArena.fillStyle = "white";
-	conArena.fillText("press enter to restart", 210, 150,);
+	conArena.fillText("press enter to restart", 210, 150);
+	conArena.fillText("Scores : "+ tableScore, 210, 200); 
 	for (keycode in keyStatus) {
                 if(keyStatus[keycode] == true){
                     if(keycode == keys.ENTER) {
                         gameOver = false;
 								conArena.clearRect(210,100,200,200);
+								if(countScore<8){
+									tableScore[countScore]=player.projectileSet.score;		
+									countScore++;
+									console.log(countScore + " countscore");
+								}
+								else{
+									countScore = 0;
+									tableScore[countScore]=player.projectileSet.score;
+									countScore++;
+								}
 								player.nbOfLives = 2;
+								player.projectileSet.score = 0;
 								enemies.init();
 								clearScore();
+								console.log(tableScore);
                     }
 					}
 	}
