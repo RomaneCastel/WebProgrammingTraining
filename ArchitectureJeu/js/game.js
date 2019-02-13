@@ -8,8 +8,10 @@ var animFrame = window.requestAnimationFrame ||
 var tics = 0;
 var _timeToBeAlive = 30;
 var gameOver = false;
+var stageVictory = false;
 var tableScore = [0,0,0,0,0,0,0,0];
 var countScore = 0;
+var stageNumber = 0;
 
 //Canvas
 var divArena;
@@ -97,12 +99,13 @@ function clearItems() {
 }
 
 function clearScore() {
-    conScore.clearRect(0,0,300,50);
+    conScore.clearRect(0,0,500,50);
 }
 
 function drawScore() {
     conScore.fillText("life : "+player.nbOfLives, 10, 25);
     conScore.fillText("score : "+player.projectileSet.score, 150,25);
+	 conScore.fillText("stage :"+ stageNumber, 300, 25);
 }
 function updateGame() {
     "use strict"; 
@@ -143,9 +146,19 @@ function endGame(){
 									tableScore[countScore]=player.projectileSet.score;
 									countScore++;
 								}
+								if(!player.projectileSet.score<5){
+									stageNumber++;
+								}
 								player.nbOfLives = 2;
-								player.projectileSet.score = 0;
-								enemies.init();
+								player.projectileSet.score = 0;	
+								if(stageNumber<2){
+									//enemies.init();
+									boss.init();
+								}
+								else{
+									enemies.init();
+									boss.init();
+								}
 								clearScore();
 								console.log(tableScore);
                     }
@@ -153,13 +166,20 @@ function endGame(){
 	}
 }
 
+
 function mainloop () {
 	if(!gameOver){
 		 "use strict"; 
 		 clearGame();
-		 updateGame();
-		 drawGame();
-	}else{
+		if(player.projectileSet.score<5){
+		 	updateGame();
+		 	drawGame();
+		}
+		else{
+			endGame();
+		}
+	}
+	else{
 		clearGame();
 		endGame();
 	}
