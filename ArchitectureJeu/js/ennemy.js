@@ -36,7 +36,7 @@ var enemies = {
 
 
 //test
-function Enemy(x,y,speed){
+function Enemy(x,y,speed,type){
     this.x = x;
     this.yOrigine = y;
     this.y = this.yOrigine;
@@ -45,7 +45,7 @@ function Enemy(x,y,speed){
     this.height = 30;
     this.width = 40;
     this.img = new Image();
-    this.img.src = "./assets/Enemy/eSpritesheet_40x30.png";
+    this.img.src = "./assets/Enemy/Hue Shifted/eSpritesheet_40x30_hue1.png";
     this.cpt = 0;
 
     this.cptExplosion =  0;//10 images

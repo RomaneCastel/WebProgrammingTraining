@@ -74,14 +74,15 @@ function updateScene() {
 function updateItems() {
     "use strict"; 
     player.update();
-    tics++;
-     if(tics % 100 == 1) {
-         var rand1 = Math.floor(Math.random() * ArenaHeight);
-			var rand2 = Math.floor(Math.random() * 10);
+		 tics++;
+		  if(tics % 100 == 1) {
+		      var rand1 = Math.floor(Math.random() * ArenaHeight);
+				var rand2 = Math.floor(Math.random() * 10);
+		
+		     enemies.add(new Enemy(ArenaWidth, rand1, -rand2));
+		 }
+		 enemies.update();
 	
-        enemies.add(new Enemy(ArenaWidth, rand1, -rand2));
-    }
-    enemies.update();
 }
 function drawScene() {
     "use strict"; 
@@ -152,12 +153,7 @@ function endGame(){
 								player.nbOfLives = 2;
 								player.projectileSet.score = 0;	
 								if(stageNumber<2){
-									//enemies.init();
-									boss.init();
-								}
-								else{
 									enemies.init();
-									boss.init();
 								}
 								clearScore();
 								console.log(tableScore);
